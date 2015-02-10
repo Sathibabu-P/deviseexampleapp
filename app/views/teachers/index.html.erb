@@ -19,8 +19,7 @@
         <td><%= teacher.email %></td>
        <td><%= teacher.posts.size %></td>
         <td>
-           <%= link_to t('.post', :default => t("helpers.links.post")),
-                     teacher, :class => 'btn btn-success btn-xs' %>
+         
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_teacher_path(teacher), :class => 'btn btn-primary btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

@@ -1,38 +1,10 @@
-<%= form_for @student, :html => { :class => "form-horizontal student" } do |f| %>
+<%= simple_form_for @student, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :name %>
+  <%= error_span(@student[:name]) %>
+  <%= f.input :email %>
+  <%= error_span(@student[:email]) %>
 
-    <% if @student.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-        <% @student.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'form-control' %>
-    </div>
-    <%= error_span(@student[:name]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :email, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :email, :class => 'form-control' %>
-    </div>
-    <%= error_span(@student[:email]) %>
-  </div>
-
-
-  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= f.button :submit, :class => 'btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            students_path, :class => 'btn btn-default' %>
-
+                students_path, :class => 'btn btn-default' %>
 <% end %>

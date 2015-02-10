@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
- 
+  
+  devise_for :users, :path_names => {:sign_up => "register"}
   resources :posts
   resources :teachers do 
     resources :posts  
@@ -12,8 +13,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'students#index'
-
+ 
+  
+  root to: 'users#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

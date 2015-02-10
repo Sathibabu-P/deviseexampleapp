@@ -1,28 +1,27 @@
 <%- model_class = Student -%>
-
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 <table class="table table-striped">
   <thead>
-    <tr>      
+    <tr>
+     
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
-       <th><%= model_class.human_attribute_name(:postcount) %></th>    
+      <th><%= model_class.human_attribute_name(:post_count) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @students.each do |student| %>
       <tr>
-        <td><%= link_to student.name, student_path(student) %></td>      
+     
+        <td><%= link_to student.name, student_path(student) %></td>
         <td><%= student.email %></td>
         <td><%= student.posts.size %></td>
         <td>
-          <%= link_to t('.post', :default => t("helpers.links.post")),
-                      student, :class => 'btn btn-success btn-xs' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_student_path(student), :class => 'btn btn-primary btn-xs' %>
+                      edit_student_path(student), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       student_path(student),
                       :method => :delete,
