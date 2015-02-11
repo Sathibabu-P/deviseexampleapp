@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+  get 'posts/delimage' => 'posts#delimage'
   devise_for :users, :path_names => {:sign_up => "register"}
   resources :posts
   resources :teachers do 

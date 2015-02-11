@@ -31,6 +31,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= link_to t('.back', :default => t("helpers.links.back")),
+             students_path, :class => 'btn btn-default'  %>
 <%= link_to t('.new_post', :default => t("helpers.links.new_post")),
               new_post_path(:sid => @student), :class => 'btn btn-warning'  %>

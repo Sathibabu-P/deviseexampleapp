@@ -8,11 +8,12 @@ class PostsController < ApplicationController
 
   def new
   	@post = Post.new
-
+   
   end
 
   def show
-  	@post = Post.find(params[:id])  	
+  	@post = Post.find(params[:id])  
+
   end
 
   def create
@@ -20,6 +21,12 @@ class PostsController < ApplicationController
   	@post.author = @author
   	 respond_to do |format|
       if @post.save
+           if params[:avatars]
+            #===== The magic is here ;)
+            params[:avatars].each { |image|
+              @post.post_images.create(avatar: image)
+            }
+           end
         format.html { redirect_to @author, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @author }
       else
@@ -39,7 +46,15 @@ class PostsController < ApplicationController
   	@pagedirect = @author if @author
   	 respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @pagedirect, notice: 'Post was successfully created.' }
+
+        if params[:avatars]
+            #===== The magic is here ;)
+            params[:avatars].each { |image|
+              @post.post_images.create(avatar: image)
+            }
+        end
+
+        format.html { redirect_to @pagedirect, notice: 'Post was successfully Updated.' }
         format.json { render :show, status: :created, location: @pagedirect }
       else
         format.html { render :new }
@@ -49,17 +64,26 @@ class PostsController < ApplicationController
   end
 
   def destroy  		
-  	@post = Post.find(params[:id])
-  	@pagedirect = @post   
-  	@pagedirect = @student if @student
-  	@pagedirect = @teacher if @teacher    
+  	@post = Post.find(params[:id])  	   
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to @pagedirect, notice: 'Post was successfully destroyed.' }
-      format.json { head :no_content }
+    format.html { redirect_to request.referrer, notice: 'Post was successfully destroyed.' }
+      format.js
     end
     
   end
+
+
+    def delimage     
+    @image = PostImage.find_by_id(params[:pid])
+    @image.destroy if @image
+    respond_to do |format|
+      format.html { redirect_to request.referrer, notice: 'Image was successfully destroyed.' }
+      format.js
+    end
+    
+    end
+
   #around_filter :catch_not_found
   private
 
@@ -81,6 +105,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-  	params.require(:post).permit(:title,:body)
+  	params.require(:post).permit(:title,:body,:avatar)
   end
 end
