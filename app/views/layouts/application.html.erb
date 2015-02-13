@@ -32,12 +32,15 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#">Polyapp</a>
+
         <div class="navbar-collapse collapse navbar-responsive-collapse">
+           <% if user_signed_in? %>
           <ul class="nav navbar-nav">
             <li><%= link_to "Students", students_path  %></li>
             <li><%= link_to "Teachers", teachers_path  %></li>
             <li><%= link_to "Posts", posts_path  %></li>
           </ul>
+           <% end %>
           <ul class="nav navbar-nav pull-right">
           <% if user_signed_in? %>
           
