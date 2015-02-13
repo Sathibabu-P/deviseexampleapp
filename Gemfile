@@ -25,6 +25,12 @@ gem 'jbuilder', '~> 2.0'
 gem 'devise-i18n-views'
 gem 'devise-bootstrap-views'
 gem "paperclip"
+
+# omniauth for devise
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 

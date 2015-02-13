@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  get 'users/finish_signup'
+
   get 'posts/delimage' => 'posts#delimage'
-  devise_for :users, :path_names => {:sign_up => "register"}
+  devise_for :users, :path_names => {:sign_up => "register"}, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
   resources :posts
   resources :teachers do 
     resources :posts  
@@ -9,6 +11,11 @@ Rails.application.routes.draw do
     resources :posts  
   end
   
+  match '/profile/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+
+  # devise_for :users
+  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211033039) do
+ActiveRecord::Schema.define(version: 20150213100949) do
+
+  create_table "authentications", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "provider",   limit: 255
+    t.string   "uid",        limit: 255
+    t.string   "token",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "identities", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "provider",   limit: 255
+    t.string   "uid",        limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "post_images", force: :cascade do |t|
     t.integer  "post_id",             limit: 4
@@ -33,6 +52,16 @@ ActiveRecord::Schema.define(version: 20150211033039) do
   end
 
   add_index "posts", ["author_type", "author_id"], name: "index_posts_on_author_type_and_author_id", using: :btree
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "session_id", limit: 255,   null: false
+    t.text     "data",       limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "students", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -69,6 +98,8 @@ ActiveRecord::Schema.define(version: 20150211033039) do
     t.integer  "failed_attempts",        limit: 4,   default: 0,  null: false
     t.datetime "unlock_token"
     t.datetime "locked_at"
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
