@@ -31,18 +31,7 @@
     </div>
     <%= error_span(@post[:body]) %>
   </div>
-   <div class="control-group">
-    <%= f.label :avatar,'Post Images(Select Multiples)', :class => 'control-label' %>
-    <div class="controls">
-    
-      <!-- Use HTML5 multiple attribute to enable multiple selection
-           and pass back to controller all files as an array, ready 
-           for paperclip!!
-           file_field_tag, since images is not a gallery attribute
-       -->
-      <%= file_field_tag "avatars[]", type: :file, multiple: true,:class => 'form-control' %>
-    </div>
-  </div>
+  
 <br>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
